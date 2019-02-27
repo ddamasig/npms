@@ -50,9 +50,14 @@
                                             <drop-down-item icon="lnr lnr-pencil" href="/user/{{ $user->id }}/edit">
                                                 Edit
                                             </drop-down-item>
-                                            <drop-down-item icon="lnr lnr-trash" href="/user/{{ $user->id }}">
-                                                Delete
-                                            </drop-down-item>
+                                            <form method="POST" action="/user/{{ $user->id }}">
+                                                @csrf
+                                                {{ method_field('DELETE') }}
+
+                                                <drop-down-item type="button" icon="lnr lnr-trash" href="/user/{{ $user->id }}">
+                                                    Delete
+                                                </drop-down-item>
+                                            </form>
                                         </drop-down-button>
                                     </td>
                                 </tr>

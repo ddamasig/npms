@@ -40,6 +40,24 @@ class User extends Authenticatable
         return false;
     }
 
+    function getIsContactPersonAttribute() {
+        if(UserType::where(['user_id' => $this->id, 'type' => 'contact_person'])->exists())
+            return true;
+        return false;
+    }
+
+    function getIsDeveloperAttribute() {
+        if(UserType::where(['user_id' => $this->id, 'type' => 'developer'])->exists())
+            return true;
+        return false;
+    }
+
+    function getIsProjectManagerAttribute() {
+        if(UserType::where(['user_id' => $this->id, 'type' => 'project_manager'])->exists())
+            return true;
+        return false;
+    }
+
     // Relationships
     public function UserTypes() {
         return $this->hasMany('UserType');

@@ -18,6 +18,10 @@ class UsersController extends Controller
 
     public function index(Request $request)
     {
+        // For admin only
+        if (!Gate::allows('users.view', Auth::user()))
+            return abort(403, 'Unauthorized action.');
+
         // Get the search query
         $query = $request->input('query');
 
@@ -28,7 +32,7 @@ class UsersController extends Controller
             orWhere('last_name', 'ILIKE', '%' . $query . '%')->
             orWhere('username', 'ILIKE', '%' . $query . '%')->
             paginate(10);
-            
+
         // Return the vuew with data
         return view('users.index')->with([
             'users' => $users
@@ -37,18 +41,23 @@ class UsersController extends Controller
 
     public function create(Request $request)
     {
-        if (Gate::allows('admin', Auth::user())) {
-            $message = $request->input('message');
+        // For admin only
+        if (!Gate::allows('users.create', Auth::user()))
+            return abort(403, 'Unauthorized action.');
 
-            return view('auth.register')->with([
-                'message' => $message
-            ]);
-        }
-        return 405;
+        $message = $request->input('message');
+
+        return view('auth.register')->with([
+            'message' => $message
+        ]);        
     }
 
     public function store(Request $request)
     {
+        // For admin only
+        if (!Gate::allows('users.store', Auth::user()))
+            return abort(403, 'Unauthorized action.');
+
         // Validate the input
         $this->validate(request(), [
             'username' => 'required',
@@ -94,6 +103,10 @@ class UsersController extends Controller
 
     public function edit(Request $request, $id)
     {
+        // For admin only
+        if (!Gate::allows('users.update', Auth::user()))
+            return abort(403, 'Unauthorized action.');
+
         $user = User::find($id);
         $message = $request->input('message');
 
@@ -105,6 +118,10 @@ class UsersController extends Controller
 
     public function updateAccount(Request $request, $id)
     {
+        // For admin only
+        if (!Gate::allows('users.update', Auth::user()))
+            return abort(403, 'Unauthorized action.');
+
         $this->validate(request(), [
             'username' => 'required',
             'password' => 'required|min:6|confirmed',
@@ -163,6 +180,8 @@ class UsersController extends Controller
 
     public function destroy($id)
     {
-        //
+        // For admin only
+        if (Gate::allows('users.delete', Auth::user()))
+            return abort(403, 'Unauthorized action.');
     }
 }
