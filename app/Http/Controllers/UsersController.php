@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Privilege;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -107,7 +108,7 @@ class UsersController extends Controller
         if (!Gate::allows('users.update', Auth::user()))
             return abort(403, 'Unauthorized action.');
 
-        $user = User::find($id);
+        $user = User::with(['privileges'])->find($id);
         $message = $request->input('message');
 
         return view('users.edit')->with([

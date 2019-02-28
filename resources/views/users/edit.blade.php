@@ -25,7 +25,7 @@
 
                                 @if ($errors->has('username'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('username') }}</strong>
+                                    <small class="text-danger mt-1">{{ $errors->first('username') }}</small>
                                 </span>
                                 @endif
                             </div>
@@ -92,7 +92,7 @@
 
                                 @if ($errors->has('first_name'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('first_name') }}</strong>
+                                    <small class="text-danger mt-1">{{ $errors->first('first_name') }}</small>
                                 </span>
                                 @endif
                             </div>
@@ -108,7 +108,7 @@
 
                                 @if ($errors->has('middle_name'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('middle_name') }}</strong>
+                                    <small class="text-danger mt-1">{{ $errors->first('middle_name') }}</small>
                                 </span>
                                 @endif
                             </div>
@@ -125,7 +125,7 @@
 
                                 @if ($errors->has('last_name'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('last_name') }}</strong>
+                                    <small class="text-danger mt-1">{{ $errors->first('last_name') }}</small>
                                 </span>
                                 @endif
                             </div>
@@ -141,7 +141,7 @@
 
                                 @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('email') }}</strong>
+                                    <small class="text-danger mt-1">{{ $errors->first('email') }}</small>
                                 </span>
                                 @endif
                             </div>
@@ -170,14 +170,15 @@
                         @csrf
                         {{ method_field('PATCH') }}
 
-                        {{--First Name field--}}
                         <div class="form-group row">
+                            {{--Admin checkbox--}}
                             <div class="col-md-2">
                                 <label class="fancy-checkbox">
                                     <input type="checkbox" checked>
                                     <span>Admin</span>
                                 </label>
                             </div>
+                            {{--Developer checkbox--}}
                             <div class="col-md-2">
                                 <label class="fancy-checkbox">
                                     <input type="checkbox">

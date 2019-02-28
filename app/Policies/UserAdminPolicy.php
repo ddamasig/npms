@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use App\UserType;
+use App\Privilege;
 
 class UserAdminPolicy
 {
@@ -19,7 +19,7 @@ class UserAdminPolicy
      */
     public function view(User $user, User $model)
     {
-        if(UserType::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
             return true;
         }
         return false;
@@ -27,7 +27,7 @@ class UserAdminPolicy
 
     public function index(User $user)
     {
-        if(UserType::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
             return true;
         }
         return false;
@@ -41,7 +41,7 @@ class UserAdminPolicy
      */
     public function create(User $user)
     {
-        if(UserType::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
             return true;
         }
         return false;
@@ -56,7 +56,7 @@ class UserAdminPolicy
      */
     public function update(User $user, User $model)
     {
-        if(UserType::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
             return true;
         }
         return false;
@@ -71,7 +71,7 @@ class UserAdminPolicy
      */
     public function delete(User $user, User $model)
     {
-        if(UserType::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
             return true;
         }
         return false;
@@ -86,7 +86,7 @@ class UserAdminPolicy
      */
     public function restore(User $user, User $model)
     {
-        if(UserType::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
             return true;
         }
         return false;
@@ -101,7 +101,7 @@ class UserAdminPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        if(UserType::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
             return true;
         }
         return false;

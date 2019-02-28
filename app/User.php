@@ -6,6 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Privilege;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -35,31 +37,31 @@ class User extends Authenticatable
     }
 
     function getIsAdminAttribute() {
-        if(UserType::where(['user_id' => $this->id, 'type' => 'admin'])->exists())
+        if(Privilege::where(['user_id' => $this->id, 'type' => 'admin'])->exists())
             return true;
         return false;
     }
 
     function getIsContactPersonAttribute() {
-        if(UserType::where(['user_id' => $this->id, 'type' => 'contact_person'])->exists())
+        if(Privilege::where(['user_id' => $this->id, 'type' => 'contact_person'])->exists())
             return true;
         return false;
     }
 
     function getIsDeveloperAttribute() {
-        if(UserType::where(['user_id' => $this->id, 'type' => 'developer'])->exists())
+        if(Privilege::where(['user_id' => $this->id, 'type' => 'developer'])->exists())
             return true;
         return false;
     }
 
     function getIsProjectManagerAttribute() {
-        if(UserType::where(['user_id' => $this->id, 'type' => 'project_manager'])->exists())
+        if(Privilege::where(['user_id' => $this->id, 'type' => 'project_manager'])->exists())
             return true;
         return false;
     }
 
     // Relationships
-    public function UserTypes() {
-        return $this->hasMany('UserType');
+    public function privileges() {
+        return $this->hasMany('App\Privilege');
     }
 }
