@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 use App\Privilege;
 
 class User extends Authenticatable
@@ -37,25 +36,25 @@ class User extends Authenticatable
     }
 
     function getIsAdminAttribute() {
-        if(Privilege::where(['user_id' => $this->id, 'type' => 'admin'])->exists())
+        if(Privilege::where(['user_id' => $this->id, 'privilege_item_id' => 'admin'])->exists())
             return true;
         return false;
     }
 
     function getIsContactPersonAttribute() {
-        if(Privilege::where(['user_id' => $this->id, 'type' => 'contact_person'])->exists())
+        if(Privilege::where(['user_id' => $this->id, 'privilege_item_id' => 'contact_person'])->exists())
             return true;
         return false;
     }
 
     function getIsDeveloperAttribute() {
-        if(Privilege::where(['user_id' => $this->id, 'type' => 'developer'])->exists())
+        if(Privilege::where(['user_id' => $this->id, 'privilege_item_id' => 'developer'])->exists())
             return true;
         return false;
     }
 
     function getIsProjectManagerAttribute() {
-        if(Privilege::where(['user_id' => $this->id, 'type' => 'project_manager'])->exists())
+        if(Privilege::where(['user_id' => $this->id, 'privilege_item_id' => 'project_manager'])->exists())
             return true;
         return false;
     }
@@ -63,5 +62,13 @@ class User extends Authenticatable
     // Relationships
     public function privileges() {
         return $this->hasMany('App\Privilege');
+    }
+
+    public function match_privileges($privileges) {
+        $isAllowed = Privilege::leftJoin('privilege_items', 'privilege_items.id', '=', 'privilege_item_id')
+            ->where('user_id', $this->id)->whereIn('privilege_items.name', $privileges)->first();
+        if ($isAllowed)
+            return true;
+        return false;
     }
 }

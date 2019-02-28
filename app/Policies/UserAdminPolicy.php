@@ -19,31 +19,25 @@ class UserAdminPolicy
      */
     public function view(User $user, User $model)
     {
-        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        $privileges = array('admin');
+        if($user->match_privileges($privileges))
             return true;
-        }
         return false;
     }
 
     public function index(User $user)
     {
-        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        $privileges = array('admin');
+        if($user->match_privileges($privileges))
             return true;
-        }
         return false;
     }
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
     public function create(User $user)
     {
-        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        $privileges = array('admin');
+        if($user->match_privileges($privileges))
             return true;
-        }
         return false;
     }
 
@@ -56,9 +50,9 @@ class UserAdminPolicy
      */
     public function update(User $user, User $model)
     {
-        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        $privileges = array('admin');
+        if($user->match_privileges($privileges))
             return true;
-        }
         return false;
     }
 
@@ -71,9 +65,9 @@ class UserAdminPolicy
      */
     public function delete(User $user, User $model)
     {
-        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        $privileges = array('admin');
+        if($user->match_privileges($privileges))
             return true;
-        }
         return false;
     }
 
@@ -86,9 +80,9 @@ class UserAdminPolicy
      */
     public function restore(User $user, User $model)
     {
-        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        $privileges = array('admin');
+        if($user->match_privileges($privileges))
             return true;
-        }
         return false;
     }
 
@@ -101,9 +95,9 @@ class UserAdminPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        if(Privilege::where(['user_id' => $user->id, 'type' => 'admin'])->exists()) {
+        $privileges = array('admin');
+        if($user->match_privileges($privileges))
             return true;
-        }
         return false;
     }
 }

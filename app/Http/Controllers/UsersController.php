@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use App\PrivilegeItem;
 
 class UsersController extends Controller
 {
@@ -49,7 +50,7 @@ class UsersController extends Controller
         $message = $request->input('message');
 
         return view('auth.register')->with([
-            'message' => $message
+            'message' => $message,
         ]);        
     }
 
@@ -93,7 +94,7 @@ class UsersController extends Controller
         // Go back to the previous page with the alert values
         return redirect()->back()->with([
             'message' => $message,
-            'color' => $color
+            'color' => $color,
         ]);
     }
 
@@ -111,9 +112,11 @@ class UsersController extends Controller
         $user = User::with(['privileges'])->find($id);
         $message = $request->input('message');
 
+        $privilegeItems = PrivilegeItem::all();
         return view('users.edit')->with([
             'user' => $user,
-            'message' => $message
+            'message' => $message,
+            'privilegeItems' => $privilegeItems
         ]);
     }
 

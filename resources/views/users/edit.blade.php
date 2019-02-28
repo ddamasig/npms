@@ -160,51 +160,12 @@
             <!-- End of User Information Panel -->
 
             <!-- Edit User Privilege Panel -->
-            <div class="panel panel-headline">
-                <div class="panel-heading">
-                    <h3 class="panel-title d-block">User Privilege</h3><small class="text-warning">Under Construction</small>
-                    <p class="panel-subtitle">All fields are required</p>
-                </div>
-                <div class="panel-body">
-                    <form method="POST" action="/user/{{ $user->id }}">
-                        @csrf
-                        {{ method_field('PATCH') }}
-
-                        <div class="form-group row">
-                            {{--Admin checkbox--}}
-                            <div class="col-md-2">
-                                <label class="fancy-checkbox">
-                                    <input type="checkbox" checked>
-                                    <span>Admin</span>
-                                </label>
-                            </div>
-                            {{--Developer checkbox--}}
-                            <div class="col-md-2">
-                                <label class="fancy-checkbox">
-                                    <input type="checkbox">
-                                    <span>Developer</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="fancy-checkbox">
-                                    <input type="checkbox">
-                                    <span>Contact Person</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Apply Changes
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <privilege-panel 
+                :user="{{ json_encode($user) }}"
+                :privilege-items="{{ $privilegeItems }}"
+                >
+            </privilege-panel>
             <!-- End of User Privilege Panel -->
-
         </div>
     </div>
 </div>
