@@ -162,7 +162,7 @@
             <!-- Edit User Privilege Panel -->
             <privilege-panel 
                 :user="{{ json_encode($user) }}"
-                :privilege-items="{{ $privilegeItems }}"
+                :privilege-groups="{{ $privilegeGroups }}"
                 >
             </privilege-panel>
             <!-- End of User Privilege Panel -->

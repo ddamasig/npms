@@ -23,7 +23,7 @@
                         </div>
                     </form>
                     <br>
-                    <div class="table-responsive">
+                    <div class="">
                         <table class="table table-hover">
                             <thead>
                                 <tr>

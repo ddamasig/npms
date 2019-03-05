@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePrivilegeItemsTable extends Migration
+class CreatePrivilegeGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreatePrivilegeItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('privilege_items', function (Blueprint $table) {
+        Schema::create('privilege_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->integer('privilege_group_id');
         });
     }
 
@@ -28,6 +27,6 @@ class CreatePrivilegeItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('privilege_items');
+        Schema::dropIfExists('privilege_groups');
     }
 }

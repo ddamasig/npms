@@ -19,7 +19,7 @@ class UserAdminPolicy
      */
     public function view(User $user, User $model)
     {
-        $privileges = array('admin');
+        $privileges = array('create user');
         if($user->match_privileges($privileges))
             return true;
         return false;
@@ -27,7 +27,7 @@ class UserAdminPolicy
 
     public function index(User $user)
     {
-        $privileges = array('admin');
+        $privileges = array('create user');
         if($user->match_privileges($privileges))
             return true;
         return false;
@@ -35,7 +35,7 @@ class UserAdminPolicy
 
     public function create(User $user)
     {
-        $privileges = array('admin');
+        $privileges = array('create user');
         if($user->match_privileges($privileges))
             return true;
         return false;
@@ -50,7 +50,7 @@ class UserAdminPolicy
      */
     public function update(User $user, User $model)
     {
-        $privileges = array('admin');
+        $privileges = array('create user');
         if($user->match_privileges($privileges))
             return true;
         return false;
@@ -65,7 +65,7 @@ class UserAdminPolicy
      */
     public function delete(User $user, User $model)
     {
-        $privileges = array('admin');
+        $privileges = array('create user');
         if($user->match_privileges($privileges))
             return true;
         return false;
@@ -80,7 +80,7 @@ class UserAdminPolicy
      */
     public function restore(User $user, User $model)
     {
-        $privileges = array('admin');
+        $privileges = array('create user');
         if($user->match_privileges($privileges))
             return true;
         return false;
@@ -95,7 +95,7 @@ class UserAdminPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        $privileges = array('admin');
+        $privileges = array('create user');
         if($user->match_privileges($privileges))
             return true;
         return false;

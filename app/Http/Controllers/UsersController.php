@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\PrivilegeItem;
+use Illuminate\Support\Facades\DB;
+use App\PrivilegeGroup;
 
 class UsersController extends Controller
 {
@@ -57,7 +59,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         // For admin only
-        if (!Gate::allows('users.store', Auth::user()))
+        if (!Gate::allows('users.create', Auth::user()))
             return abort(403, 'Unauthorized action.');
 
         // Validate the input
@@ -112,11 +114,11 @@ class UsersController extends Controller
         $user = User::with(['privileges'])->find($id);
         $message = $request->input('message');
 
-        $privilegeItems = PrivilegeItem::all();
+        $privilegeGroups= PrivilegeGroup::with(['privilege_items'])->get();
         return view('users.edit')->with([
             'user' => $user,
             'message' => $message,
-            'privilegeItems' => $privilegeItems
+            'privilegeGroups' => $privilegeGroups
         ]);
     }
 
@@ -187,5 +189,30 @@ class UsersController extends Controller
         // For admin only
         if (Gate::allows('users.delete', Auth::user()))
             return abort(403, 'Unauthorized action.');
+    }
+
+    public function updatePrivileges(Request $request, $id)
+    {
+        // Get the new privilleges
+        $newPrivilegeItems = $request->input('originalUserPrivileges');
+        // Get the user that is being edited
+        $user = User::find($id);
+        // Delete the existing user privileges
+        $oldPrivileges = Privilege::where('user_id', $id)->delete();
+
+        foreach ($newPrivilegeItems as $key => $privilegeItem) {
+            $privilege = new Privilege;
+            $privilege->privilege_item_id = $privilegeItem;
+            $privilege->user_id = $user->id;
+            $privilege->save();
+        }
+
+        $message = 'User privilege successfully update!';
+        $color = 'alert-success';
+
+        return response()->json([
+            'message' => 'User privileges updated successfully!',
+            'color' => 'alert-success'
+        ]);
     }
 }
