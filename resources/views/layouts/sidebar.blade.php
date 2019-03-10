@@ -9,8 +9,8 @@
                         <span>Projects</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="projects" class="collapse ">
                         <ul class="nav">
-                            <li><a href="page-profile.html" class="">Create New Project</a></li>
-                            <li><a href="page-login.html" class="">View All Projects</a></li>
+                            <li><a href="/projects/create" class="">Create New Project</a></li>
+                            <li><a href="/projects" class="">View All Projects</a></li>
                         </ul>
                     </div>
                 </li>

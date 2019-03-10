@@ -189,6 +189,25 @@ class UsersController extends Controller
         // For admin only
         if (Gate::allows('users.delete', Auth::user()))
             return abort(403, 'Unauthorized action.');
+        
+        // Get the user that is being edited
+        $user = User::find($id);
+        // Delete the existing user privileges
+        $result = $user->delete();
+
+        if($result) {
+            $message = 'User successfully deleted!';
+            $color = 'alert-success';
+        }
+        else {
+            $message = 'An error has occurred during the process!';
+            $color = 'alert-success';
+        }
+
+        return redirect()->back()->with([
+            'message' => $message,
+            'color' => $color,
+        ]);
     }
 
     public function updatePrivileges(Request $request, $id)

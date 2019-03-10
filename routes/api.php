@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResources([
+    'users' => 'API\UsersController',
     'privilege_groups' => 'API\PrivilegeGroupsController',
 ]);

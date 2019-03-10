@@ -21,7 +21,7 @@
 
                             <div class="col-md-10">
                                 <input id="username" value="{{ $user->username }}" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
-                                    name="username" value="{{ old('username') }}" required autofocus>
+                                    name="username" required autofocus>
 
                                 @if ($errors->has('username'))
                                 <span class="invalid-feedback" role="alert">

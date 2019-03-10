@@ -65,7 +65,7 @@ class UserAdminPolicy
      */
     public function delete(User $user, User $model)
     {
-        $privileges = array('create user');
+        $privileges = array('delete user');
         if($user->match_privileges($privileges))
             return true;
         return false;

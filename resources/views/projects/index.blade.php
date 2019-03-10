@@ -7,13 +7,13 @@
             <!-- TABLE HOVER -->
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Manage Users</h3>
+                    <h3 class="panel-title">Manage projects</h3>
                 </div>
                 <div class="panel-body">
                     <!-- Search Bar -->
-                    <form method="GET" action="/user">
+                    <form method="GET" action="/projects">
                         <div class="input-group">
-                            <input name="query" class="form-control" placeholder="Enter user keywords" type="text">
+                            <input name="query" class="form-control" placeholder="Enter projects keywords" type="text">
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="submit">
                                     <span class="fa fa-search"></span>
@@ -28,29 +28,32 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Full Name</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
+                                    <th>Project Name</th>
+                                    <th>Manager</th>
+                                    <th>Client</th>
+                                    <th>Contact Person</th>
+                                    <th>Progress</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($users as $user)
+                                @foreach($projects as $project)
                                 <tr>
-                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $project->id }}</td>
                                     <td>
-                                        <a href="/user/{{ $user->id }}">
-                                            {{ $user->full_name }}
+                                        <a href="/projects/{{ $project->id }}">
+                                            {{ $project->name }}
                                         </a>
                                     </td>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $project->manager->full_name }}</td>
+                                    <td>{{ $project->client }}</td>
+                                    <td>{{ $project->contact->full_name }}</td>
                                     <td>
                                         <drop-down-button name="Actions">
-                                            <drop-down-item icon="lnr lnr-pencil" href="/user/{{ $user->id }}/edit">
+                                            <drop-down-item icon="lnr lnr-pencil" href="/projects/{{ $project->id }}/edit">
                                                 Edit
                                             </drop-down-item>
-                                            <form method="POST" action="/user/{{ $user->id }}">
+                                            <form method="POST" action="/projects/{{ $project->id }}">
                                                 @csrf
                                                 {{ method_field('DELETE') }}
 
@@ -65,7 +68,8 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $users->links() }}
+                    <!-- Pagination -->
+                    {{ $projects->links() }}
                 </div>
             </div>
             <!-- END TABLE HOVER -->

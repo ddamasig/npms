@@ -1,15 +1,21 @@
 <template>
-    <a class="list-group-item" :href="href">
-        <span :class="icon"></span>
-        <slot></slot>
-    </a>
+    <div>
+        <button class="list-group-item" v-if="!href">
+            <span :class="icon"></span>
+            <slot></slot>
+        </button>
+        <a class="list-group-item" :href="href" v-else>
+            <span :class="icon"></span>
+            <slot></slot>
+        </a>
+    </div>
 </template>
 
 <script>
     export default {
         props: {
-            href: String,
-            icon: String
+            icon: String,
+            href: ''
         },
         data: function() {
             return {
