@@ -16,3 +16,6 @@ axios = require('axios');
 const app = new Vue({
     el: '#wrapper'
 });
+
+// $('#myTab a[href="#tasks"]').tab('show')
+$('#tasks-tab').click();

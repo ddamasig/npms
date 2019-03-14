@@ -1,6 +1,5 @@
 <template>
     <form method="POST" :action="action">
-        <input type="hidden" name="_method" :value="method">
         <input type="hidden" name="_token" :value="csrf">
         <input type="hidden" name="project_id" :value="projectId">
         <div class="form-group row">
@@ -33,7 +32,6 @@
         props: {
             action: String,
             csrf: String,
-            method: String,
             projectId: null,
         },
     }

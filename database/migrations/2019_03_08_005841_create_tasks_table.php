@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
+            $table->string('status')->default('Pending');
             $table->integer('developer_id');
             $table->integer('module_id');
         });

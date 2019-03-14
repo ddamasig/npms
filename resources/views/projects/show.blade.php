@@ -22,10 +22,17 @@
                                 </span>
                             </h3>
                             <div class="list-group" style="border-radius: 0px;">
+                                @if($project->count() != 0)
                                 @foreach($project->modules as $module)
-                                    <module-list-item :module="{{ json_encode($module) }}">
-                                    </module-list-item>
+                                @if($activeModule->id == $module->id)
+                                <module-list-item active="true" :module="{{ json_encode($module) }}">
+                                </module-list-item>
+                                @else
+                                <module-list-item active="false" :module="{{ json_encode($module) }}">
+                                </module-list-item>
+                                @endif
                                 @endforeach
+                                @endif
                             </div>
                         </div>
 
@@ -43,8 +50,51 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
-                                        Tasks Tab Content
+                                    <div class="tab-pane fade" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+                                        <div class="">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Tasks Name</th>
+                                                        <th>Developer</th>
+                                                        <th>Status</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if($activeModule)
+                                                    @foreach($activeModule->tasks as $task)
+                                                    <tr>
+                                                        <td>{{ $task->id }}</td>
+                                                        <td>
+                                                            <a href="/projects/{{ $project->id }}">
+                                                                {{ $task->name }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $task->developer->full_name }}</td>
+                                                        <td>{{ $task->status }}</td>
+                                                        <td>
+                                                            <drop-down-button name="Actions" btn-link="false">
+                                                                <drop-down-item icon="lnr lnr-pencil" href="/projects/{{ $project->id }}/edit">
+                                                                    Edit
+                                                                </drop-down-item>
+                                                                <form method="POST" action="/projects/{{ $project->id }}">
+                                                                    @csrf
+                                                                    {{ method_field('DELETE') }}
+
+                                                                    <drop-down-item type="submit" icon="lnr lnr-trash">
+                                                                        Delete
+                                                                    </drop-down-item>
+                                                                </form>
+                                                            </drop-down-button>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
                                         Comments Tab Content
@@ -70,7 +120,22 @@
             </div>
         </div>
         <div class="panel-body">
-            <module-form action="/modules" method="POST" csrf="{{ csrf_token() }}" project-id="{{ $project->id }}"></module-form>
+            <module-form action="/modules" csrf="{{ csrf_token() }}" project-id="{{ $project->id }}"></module-form>
+        </div>
+    </div>
+</div>
+
+<div style="width: 60%; margin: auto; margin-top: 5%;" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+    id="module-patch-modal" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="panel" abindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="panel-heading">
+            <h3 class="panel-title">Create Module</h3>
+            <div class="right">
+                <button type="button" data-dismiss="modal" aria-label="Close"><i class="lnr lnr-cross"></i></button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <module-form action="/modules" method="PATCH" csrf="{{ csrf_token() }}" project-id="{{ $project->id }}"></module-form>
         </div>
     </div>
 </div>

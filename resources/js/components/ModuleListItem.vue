@@ -1,10 +1,18 @@
 <template>
-    <a style="border-radius: 0px;" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <a href="#" :class="{'active' : active == 'true' }" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="">
             <h5 style="display:inline;" class="mb-1">{{ module.name }}</h5>
             <span style="float: right;">
-                <button style="padding: 0px;" class="btn-link text-primary"><i class="lnr lnr-pencil"></i></button>
-                <button style="padding: 0px;" class="btn-link text-danger"><i class="lnr lnr-trash"></i></button>
+                <drop-down-button name="" btn-link="true" icon="fa fa-ellipsis-v">
+                    <drop-down-item icon="lnr lnr-pencil" href="#" data-toggle="modal" data-target="#module-patch-modal">
+                        Edit
+                    </drop-down-item>
+                    <form method="POST" action="#">
+                        <drop-down-item type="submit" icon="lnr lnr-trash">
+                            Delete
+                        </drop-down-item>
+                    </form>
+                </drop-down-button>
             </span>
         </div>
         <small class="mb-1" style="display: block; margin-bottom: 10px">{{ module.description }}...</small>
@@ -14,24 +22,36 @@
             </div>
         </div>
         <small>
-            <span class="label label-primary">INFO</span>
-            <span class="label label-primary">INFO</span>
-            <span class="label label-primary">INFO</span>
-            <span class="label label-primary">INFO</span>
-            <span class="label label-primary">INFO</span>
+            <span class="label label-primary" v-for="developer in module.developers" :key="developer.id">
+                {{ developer.initials }}
+            </span>
         </small>
     </a>
 </template>
 
+<style scoped>
+    .active {
+        background-color: white;
+        color: #555;
+    }
+
+    .active:hover, .active:visited, .active:focus {
+        background-color: white;
+        color: #555;
+    }
+
+</style>
+
 
 <script>
-export default {
-    props: [
-        'module',
-    ],
-    data() {
-        return {
+    export default {
+        props: [
+            'module',
+            'active'
+        ],
+        data() {
+            return {}
         }
     }
-}
+
 </script>

@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $appends = ['full_name'];
+    protected $appends = ['full_name', 'initials'];
 
     /**
      * The attributes that are mass assignable.
@@ -33,6 +33,14 @@ class User extends Authenticatable
     // Accessor
     function getFullNameAttribute() {
         return $this->first_name . ' ' . $this->middle_name[0] . '. ' . $this->last_name;
+    }
+
+    public function getInitialsAttribute() {
+        $initials = substr($this->first_name, 0, 1) .
+            substr($this->middle_name, 0, 1) .
+            substr($this->last_name, 0, 1);
+
+        return $initials;
     }
 
     function getIsAdminAttribute() {

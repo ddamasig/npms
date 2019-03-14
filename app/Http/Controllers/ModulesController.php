@@ -35,7 +35,11 @@ class ModulesController extends Controller
      */
     public function store(Request $request)
     {
-        $result = Module::create($request->all());
+        $module = new Module;
+        $module->name = $request->input('name');
+        $module->description = $request->input('description');
+        $module->project_id = $request->input('project_id');
+        $result = $module->save();
 
         // Initialize alert values
         $message = 'No message';

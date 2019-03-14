@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Privilege;
+use App\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -56,16 +57,18 @@ class ProjectsController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show($id, $moduleId)
     {
         // For admin only
         if (!Gate::allows('users.update', Auth::user()))
             return abort(403, 'Unauthorized action.');
 
         $project = Project::with(['modules'])->find($id);
+        $activeModule = Module::with(['tasks'])->find($moduleId);
 
         return view('projects.show')->with([
-            'project' => $project
+            'project' => $project,
+            'activeModule' => $activeModule
         ]);
     }
 

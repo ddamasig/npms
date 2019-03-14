@@ -1,5 +1,4 @@
 <template>
-    <div>
         <button class="list-group-item" v-if="!href">
             <span :class="icon"></span>
             <slot></slot>
@@ -8,7 +7,6 @@
             <span :class="icon"></span>
             <slot></slot>
         </a>
-    </div>
 </template>
 
 <script>

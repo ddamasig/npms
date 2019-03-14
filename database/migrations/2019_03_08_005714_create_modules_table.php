@@ -19,7 +19,7 @@ class CreateModulesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('project_id');
-            $table->double('progress');
+            $table->double('progress')->default(0.0);
         });
     }
 
