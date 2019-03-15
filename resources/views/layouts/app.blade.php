@@ -29,11 +29,7 @@
         <div class="main-content">
             <div class="container-fluid">
                 {{--Alert--}}
-                @if(session()->has('message'))
-                    <Alert color="{{ session()->get('color')  }}">
-                        {{ session()->get('message') }}
-                    </Alert>
-                @endif
+                <Alert></Alert>
             </div>
             @yield('content')
         </div>

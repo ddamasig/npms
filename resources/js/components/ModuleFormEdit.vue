@@ -1,5 +1,5 @@
 <template>
-    <form method="POST" @submit.prevent="submit('post')">
+    <form method="POST" @submit.prevent="submit()">
         <input type="hidden" name="project_id" v-model="model.project_id">
         <div class="form-group row">
             <label for="name" class="col-md-2 col-form-label text-md-right">Module Name</label>
@@ -28,18 +28,13 @@
 
 <script>
     export default {
-        props: {
-            csrf: String,
-            defaultName: String,
-            defaultDescription: String,
-            defaultProjectId: String,
-        },
         data() {
             return {
+                module: {},
                 model: {
-                    name: this.defaultName,
-                    description: this.defaultDescription,
-                    project_id: this.defaultProjectId
+                    name: this.module.name,
+                    description: this.module.description,
+                    project_id: this.module.project_id
                 }
             }
         },
@@ -50,9 +45,9 @@
                 this.model.description = '';
             },
             // Submits the form using Axios
-            submit() {
+            submit(method) {
                 // Send an Axios POST Request
-                axios.post('/modules', this.model)
+                axios.put('/modules', this.model)
                     .then((response) => {
                         // If the server returns a 200 response
                         if (response.status == 200) {
@@ -72,6 +67,12 @@
                         }
                     }); // End of Axios Request
             }, // End of submit()
+        },
+        created() {
+            // Change the form data based on the ACTIVEMODULE on ModuleList.vue
+            Event.$on('changeActiveModule', (data) => {
+                this.module = data.module;
+            })
         }
     }
 

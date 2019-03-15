@@ -57,14 +57,17 @@ class ProjectsController extends Controller
         ]);
     }
 
-    public function show($id, $moduleId)
+    public function show($id, $moduleId = 0)
     {
         // For admin only
         if (!Gate::allows('users.update', Auth::user()))
             return abort(403, 'Unauthorized action.');
 
         $project = Project::with(['modules'])->find($id);
-        $activeModule = Module::with(['tasks'])->find($moduleId);
+        if ($moduleId != null)
+            $activeModule = Module::with(['tasks'])->find($moduleId);
+        else 
+            $activeModule = $project->modules->first();
 
         return view('projects.show')->with([
             'project' => $project,

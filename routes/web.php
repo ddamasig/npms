@@ -13,7 +13,7 @@ Route::put('/user/{id}/privileges', 'UsersController@updatePrivileges')->name('u
 
 // Web Routes
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-Route::get('/projects/{id}/modules/{moduleId}', 'ProjectsController@show')->name('projectView');
+Route::get('/projects/{id}/modules/{moduleId?}', 'ProjectsController@show')->name('projectView');
 Route::resource('projects', 'ProjectsController');
 Route::resource('modules', 'ModulesController');
 Route::resource('tasks', 'TasksController');

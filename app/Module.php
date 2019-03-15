@@ -7,10 +7,6 @@ use App\Task;
 
 class Module extends Model
 {
-    protected $attributes = [
-        'developers'
-    ];
-
     protected $with = ['developers'];
 
     protected $fillable = [

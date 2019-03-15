@@ -35,28 +35,10 @@ class ModulesController extends Controller
      */
     public function store(Request $request)
     {
-        $module = new Module;
-        $module->name = $request->input('name');
-        $module->description = $request->input('description');
-        $module->project_id = $request->input('project_id');
-        $result = $module->save();
-
-        // Initialize alert values
-        $message = 'No message';
-        $color = 'alert-danger';
-
-        // If the user creation was successful
-        if($result) {
-            // Alter the alert values
-            $message = 'Module successfully created!';
-            $color = 'alert-success';
-        }
+        $result = Module::create($request->all());
 
         // Go back to the previous page with the alert values
-        return redirect()->back()->with([
-            'message' => $message,
-            'color' => $color,
-        ]);
+        return response()->json();
     }
 
     /**
@@ -101,6 +83,11 @@ class ModulesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Get the module using the ID parameter
+        $module = Module::find($id);
+        $result = $module->delete();
+
+        // Return a JSON response based on the result
+        return response()->json();
     }
 }

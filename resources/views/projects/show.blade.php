@@ -21,19 +21,9 @@
                                     <a href="#" data-toggle="modal" data-target="#module-modal" class="lnr lnr-plus-circle"></a>
                                 </span>
                             </h3>
-                            <div class="list-group" style="border-radius: 0px;">
-                                @if($project->count() != 0)
-                                @foreach($project->modules as $module)
-                                @if($activeModule->id == $module->id)
-                                <module-list-item active="true" :module="{{ json_encode($module) }}">
-                                </module-list-item>
-                                @else
-                                <module-list-item active="false" :module="{{ json_encode($module) }}">
-                                </module-list-item>
-                                @endif
-                                @endforeach
-                                @endif
-                            </div>
+                            @if($project->modules->count() > 0)
+                                <module-list :project="{{$project}}"></module-list>
+                            @endif
                         </div>
 
                         <!-- Tasks and Comments Tab -->
@@ -120,22 +110,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <module-form action="/modules" csrf="{{ csrf_token() }}" project-id="{{ $project->id }}"></module-form>
-        </div>
-    </div>
-</div>
-
-<div style="width: 60%; margin: auto; margin-top: 5%;" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
-    id="module-patch-modal" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="panel" abindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="panel-heading">
-            <h3 class="panel-title">Create Module</h3>
-            <div class="right">
-                <button type="button" data-dismiss="modal" aria-label="Close"><i class="lnr lnr-cross"></i></button>
-            </div>
-        </div>
-        <div class="panel-body">
-            <module-form action="/modules" method="PATCH" csrf="{{ csrf_token() }}" project-id="{{ $project->id }}"></module-form>
+            <module-form action="/modules" csrf="{{ csrf_token() }}" default-project-id="{{ $project->id }}"></module-form>
         </div>
     </div>
 </div>

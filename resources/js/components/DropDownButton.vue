@@ -23,9 +23,6 @@
         data: function() {
             return {
             }
-        },
-        mounted() {
-            console.log('Component mounted.')
         }
     }
 </script>
