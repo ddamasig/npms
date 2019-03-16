@@ -25,7 +25,7 @@
             Event.$on('put', (data) => {
                 this.message = data.message;
                 this.color = 'alert-success';
-                this.icon = 'fa-check-circle';
+                this.icon = 'fa-pencil';
             });
             Event.$on('delete', (data) => {
                 this.message = data.message;

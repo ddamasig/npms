@@ -26,7 +26,16 @@ class ModulesController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        // Retrieve the Module
+        $module = Module::find($id);
+        // Update the values using the form inputs
+        $module->name = $request->input('name');
+        $module->description = $request->input('description');
+        $module->project_id = $request->input('project_id');
+        $result = $module->save();
+
+        // Return a response
+        return response()->json();
     }
 
     public function destroy($id)

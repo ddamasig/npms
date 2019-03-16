@@ -28,13 +28,17 @@
 
 <script>
     export default {
+        props: {
+            defaultModule: Object,
+            modalId: String
+        },
         data() {
             return {
-                module: {},
+                module: this.defaultModule,
                 model: {
-                    name: this.module.name,
-                    description: this.module.description,
-                    project_id: this.module.project_id
+                    name: String,
+                    description: String,
+                    project_id: String
                 }
             }
         },
@@ -47,18 +51,16 @@
             // Submits the form using Axios
             submit(method) {
                 // Send an Axios POST Request
-                axios.put('/modules', this.model)
+                axios.put('/api/modules/' + this.module.id, this.model)
                     .then((response) => {
                         // If the server returns a 200 response
                         if (response.status == 200) {
                             // Tell the alert that the post request was a success
-                            Event.$emit('post', {
-                                message: 'Module successfully created!'
+                            Event.$emit('put', {
+                                message: 'Module successfully updated!'
                             });
                             // Tell the module list to update the items
                             Event.$emit('updateModuleList');
-                            // Clear the form
-                            this.clearForm();
                         } else { // Else an error has occured
                             // Tell the alert that an error has occured
                             this.$emit('error', {
@@ -66,13 +68,24 @@
                             });
                         }
                     }); // End of Axios Request
+                // Hide the modal
+                $(`#${this.modalId}`).modal('hide')
             }, // End of submit()
+            // setValuesialize the default values of MODULE
+            setValues() {
+                this.model.name = this.module.name
+                this.model.description = this.module.description
+                this.model.project_id = this.module.project_id
+            }
         },
         created() {
             // Change the form data based on the ACTIVEMODULE on ModuleList.vue
             Event.$on('changeActiveModule', (data) => {
                 this.module = data.module;
+                this.setValues();
             })
+            // setValuesialize
+            this.setValues();
         }
     }
 

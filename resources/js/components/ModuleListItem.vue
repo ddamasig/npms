@@ -1,7 +1,9 @@
 <template>
     <a id="root" href="#" :class="{'active' : active == 'true' }" class="list-group-item list-group-item-action flex-column align-items-start">
-        <div class="">
-            <h5 style="display:inline;" class="mb-1">{{ module.name }}</h5>
+        <div style="display: block; margin-bottom: 10px">
+            <h5 style="display:inline;" class="mb-1">
+                {{ module.name }}
+            </h5>
             <span style="float: right;">
                 <drop-down-button name="" btn-link="true" icon="fa fa-ellipsis-v">
                     <drop-down-item icon="lnr lnr-pencil" href="#" data-toggle="modal" data-target="#module-form-edit-modal">
@@ -15,7 +17,7 @@
                 </drop-down-button>
             </span>
         </div>
-        <small class="mb-1" style="margin-bottom: 10px">
+        <small class="mb-1" style="display: block; margin-bottom: 10px">
             {{ module.description.substring(0,100) }}...
         </small>
         <div class="progress">

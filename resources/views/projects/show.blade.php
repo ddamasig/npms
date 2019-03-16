@@ -18,11 +18,11 @@
                             <h3 class="panel-title" style="padding-bottom: 20px;">
                                 <span>Module List</span>
                                 <span style="float: right;">
-                                    <a href="#" data-toggle="modal" data-target="#module-modal" class="lnr lnr-plus-circle"></a>
+                                    <a href="#" data-toggle="modal" data-target="#module-form-modal" class="lnr lnr-plus-circle"></a>
                                 </span>
                             </h3>
                             @if($project->modules->count() > 0)
-                                <module-list :project="{{$project}}"></module-list>
+                            <module-list :project="{{$project}}"></module-list>
                             @endif
                         </div>
 
@@ -100,18 +100,7 @@
 </div>
 
 <!-- Modals -->
-<div style="width: 60%; margin: auto; margin-top: 5%;" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
-    id="module-modal" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="panel" abindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="panel-heading">
-            <h3 class="panel-title">Create Module</h3>
-            <div class="right">
-                <button type="button" data-dismiss="modal" aria-label="Close"><i class="lnr lnr-cross"></i></button>
-            </div>
-        </div>
-        <div class="panel-body">
-            <module-form action="/modules" csrf="{{ csrf_token() }}" default-project-id="{{ $project->id }}"></module-form>
-        </div>
-    </div>
-</div>
+<modal title="Create New Module" id="module-form-modal">
+    <module-form modal-id="module-form-modal" default-project-id="{{ $project->id }}"></module-form>
+</modal>
 @endsection

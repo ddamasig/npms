@@ -29,16 +29,14 @@
 <script>
     export default {
         props: {
-            csrf: String,
-            defaultName: String,
-            defaultDescription: String,
-            defaultProjectId: String,
+            modalId: String,
+            defaultProjectId: [String, Number]
         },
         data() {
             return {
                 model: {
-                    name: this.defaultName,
-                    description: this.defaultDescription,
+                    name: '',
+                    description: '',
                     project_id: this.defaultProjectId
                 }
             }
@@ -71,6 +69,8 @@
                             });
                         }
                     }); // End of Axios Request
+                // Hide modal
+                $(`#${this.modalId}`).modal('hide');
             }, // End of submit()
         }
     }
