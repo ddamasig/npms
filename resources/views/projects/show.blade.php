@@ -41,49 +41,8 @@
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
-                                        <div class="">
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Tasks Name</th>
-                                                        <th>Developer</th>
-                                                        <th>Status</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @if($activeModule)
-                                                    @foreach($activeModule->tasks as $task)
-                                                    <tr>
-                                                        <td>{{ $task->id }}</td>
-                                                        <td>
-                                                            <a href="/projects/{{ $project->id }}">
-                                                                {{ $task->name }}
-                                                            </a>
-                                                        </td>
-                                                        <td>{{ $task->developer->full_name }}</td>
-                                                        <td>{{ $task->status }}</td>
-                                                        <td>
-                                                            <drop-down-button name="Actions" btn-link="false">
-                                                                <drop-down-item icon="lnr lnr-pencil" href="/projects/{{ $project->id }}/edit">
-                                                                    Edit
-                                                                </drop-down-item>
-                                                                <form method="POST" action="/projects/{{ $project->id }}">
-                                                                    @csrf
-                                                                    {{ method_field('DELETE') }}
-
-                                                                    <drop-down-item type="submit" icon="lnr lnr-trash">
-                                                                        Delete
-                                                                    </drop-down-item>
-                                                                </form>
-                                                            </drop-down-button>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                    @endif
-                                                </tbody>
-                                            </table>
+                                        <div>
+                                            <tasks-table></tasks-table>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">

@@ -13,6 +13,42 @@
     </div>
 </template>
 
+<script>
+    export default {
+        props: {
+            project: Object
+        },
+        data() {
+            return {
+                activeModule: this.project.modules[0],
+                modules: this.updateModuleList()
+            }
+        },
+        mounted() {
+            Event.$on('updateModuleList', (data) => {
+                this.updateModuleList();
+            });
+            this.setActiveModule(this.activeModule);
+        },
+        methods: {
+            updateModuleList() {
+                axios.get('/api/modules/by_project/' + this.project.id).
+                then((response) => {
+                    this.modules = response.data.modules;
+                });
+            },
+            setActiveModule(module) {
+                this.activeModule = module;
+                Event.$emit('changeActiveModule', {
+                    module: module,
+                });
+            },
+        }
+    }
+
+</script>
+
+
 <style>
     /* width */
     ::-webkit-scrollbar {
@@ -63,38 +99,3 @@
     }
 
 </style>
-
-
-<script>
-    export default {
-        props: {
-            project: Object
-        },
-        data() {
-            return {
-                activeModule: this.project.modules[0],
-                modules: this.updateModuleList()
-            }
-        },
-        created() {
-            Event.$on('updateModuleList', (data) => {
-                this.updateModuleList();
-            });
-        },
-        methods: {
-            updateModuleList() {
-                axios.get('/api/modules/by_project/' + this.project.id).
-                then((response) => {
-                    this.modules = response.data.modules;
-                });
-            },
-            setActiveModule(module) {
-                this.activeModule = module;
-                Event.$emit('changeActiveModule', {
-                    module: module,
-                });
-            },
-        }
-    }
-
-</script>

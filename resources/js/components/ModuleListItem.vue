@@ -18,7 +18,7 @@
             </span>
         </div>
         <small class="mb-1" style="display: block; margin-bottom: 10px">
-            {{ module.description.substring(0,100) }}...
+            {{ module.description.substring(0,55) }}...
         </small>
         <div class="progress">
             <div class="progress-bar progress-bar-striped active" role="progressbar" :aria-valuenow="module.progress"
@@ -68,9 +68,7 @@
                             Event.$emit('delete', {
                                 message: 'Module successfully deleted!',
                             });
-                            Event.$emit('updateModuleList', {
-                                message: 'Module successfully deleted!',
-                            });
+                            Event.$emit('updateModuleList');
                         } else {
                             this.$emit('error', {
                                 message: 'Module successfully created!'

@@ -1,18 +1,16 @@
 <template>
     <form method="POST" @submit.prevent="submit()">
-        <input type="hidden" name="project_id" v-model="model.project_id">
+        <input type="hidden" name="project_id" v-model="model.module_id">
         <div class="form-group row">
-            <label for="name" class="col-md-2 col-form-label text-md-right">Module Name</label>
+            <label for="name" class="col-md-2 col-form-label text-md-right">Task Name</label>
             <div class="col-md-10">
                 <input id="name" v-model="model.name" type="text" class="form-control" name="name" required autofocus>
             </div>
         </div>
         <div class="form-group row">
-            <label for="description" class="col-md-2 col-form-label text-md-right">Description</label>
+            <label for="description" class="col-md-2 col-form-label text-md-right">Developer</label>
             <div class="col-md-10">
-                <textarea rows="8" v-model="model.description" id="description" type="text" class="form-control" name="description"
-                    required autofocus>
-                </textarea>
+                <select-search url="/api/users" v-model="model.developer_id" name="manager_id" text-key="full_name" value-key="id"></select-search>
             </div>
         </div>
 
@@ -29,63 +27,63 @@
 <script>
     export default {
         props: {
-            defaultModule: Object,
-            modalId: String
+            modalId: String,
+            defaultModuleId: [String, Number]
         },
         data() {
             return {
-                module: this.defaultModule,
                 model: {
-                    name: String,
-                    description: String,
-                    project_id: String
+                    name: '',
+                    module_id: this.defaultModuleId,
+                    developer_id: '',
+                    status: 'pending'
                 }
             }
+        },
+        created() {
+            Event.$on('changeActiveModule', (data) => {
+                this.setValues(data.module);
+            });
         },
         methods: {
             // Clear all the v-models
             clearForm() {
                 this.model.name = '';
                 this.model.description = '';
+                this.model.developer_id = '';
             },
             // Submits the form using Axios
-            submit(method) {
+            submit() {
                 // Send an Axios POST Request
-                axios.put('/api/modules/' + this.module.id, this.model)
+                axios.post('/api/tasks', this.model)
                     .then((response) => {
+                        console.log('Task created: ');
+                        console.log(this.model);
                         // If the server returns a 200 response
                         if (response.status == 200) {
                             // Tell the alert that the post request was a success
-                            Event.$emit('put', {
-                                message: 'Module successfully updated!'
+                            Event.$emit('post', {
+                                message: 'Task successfully created!'
                             });
                             // Tell the module list to update the items
+                            Event.$emit('updateTasks');
                             Event.$emit('updateModuleList');
+                            // Clear the form
+                            this.clearForm();
                         } else { // Else an error has occured
                             // Tell the alert that an error has occured
                             this.$emit('error', {
-                                message: 'Module successfully created!'
+                                message: 'An error has occurred!'
                             });
                         }
                     }); // End of Axios Request
-                // Hide the modal
-                $(`#${this.modalId}`).modal('hide')
+                // Hide modal
+                $(`#${this.modalId}`).modal('hide');
             }, // End of submit()
-            // setValuesialize the default values of MODULE
-            setValues() {
-                this.model.name = this.module.name
-                this.model.description = this.module.description
-                this.model.project_id = this.module.project_id
+            // Set the module_id
+            setValues(module) {
+                this.model.module_id = module.id;
             }
-        },
-        created() {
-            // Change the form data based on the ACTIVEMODULE on ModuleList.vue
-            Event.$on('changeActiveModule', (data) => {
-                this.module = data.module;
-                this.setValues();
-            })
-            // setValuesialize
-            // this.setValues();
         }
     }
 

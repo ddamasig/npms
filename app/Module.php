@@ -7,7 +7,7 @@ use App\Task;
 
 class Module extends Model
 {
-    protected $with = ['developers'];
+    protected $with = ['developers', 'tasks'];
 
     protected $fillable = [
         'name',

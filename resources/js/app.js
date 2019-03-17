@@ -14,6 +14,11 @@ Vue.component('ModuleListItem', require('./components/ModuleListItem.vue').defau
 // Forms
 Vue.component('ModuleForm', require('./components/ModuleForm.vue').default);
 Vue.component('ModuleFormEdit', require('./components/ModuleFormEdit.vue').default);
+Vue.component('TaskForm', require('./components/TaskForm.vue').default);
+Vue.component('TaskFormEdit', require('./components/TaskFormEdit.vue').default);
+// Tasks
+Vue.component('TasksTable', require('./components/TasksTable.vue').default);
+Vue.component('TaskRow', require('./components/TaskRow.vue').default);
 
 axios = require('axios');
 window.Event = new Vue();
