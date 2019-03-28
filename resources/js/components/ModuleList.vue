@@ -1,5 +1,5 @@
 <template>
-    <div class="list-group scrollable-div" style="border-radius: 0px; padding-right: 5px;">
+    <div class="list-group" style="border-radius: 0px; padding-right: 5px;">
         <div v-for="module in modules" :key="module.id" @click="setActiveModule(module)">
             <module-list-item v-if="module.id == activeModule.id" active="true" :module="module">
             </module-list-item>

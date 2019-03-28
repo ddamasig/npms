@@ -2396,6 +2396,11 @@ __webpack_require__.r(__webpack_exports__);
     // whenever question changes, this function will run
     text: function text() {
       this.getOptions();
+    },
+    value: function value() {
+      if (this.value == '') {
+        this.text = '';
+      }
     }
   },
   // Methods start here
@@ -4631,7 +4636,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "list-group scrollable-div",
+      staticClass: "list-group",
       staticStyle: { "border-radius": "0px", "padding-right": "5px" }
     },
     [

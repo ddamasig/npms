@@ -44,6 +44,11 @@
             // whenever question changes, this function will run
             text: function () {
                 this.getOptions();
+            },
+            value: function () {
+                if (this.value == '') {
+                    this.text = '';
+                }
             }
         },
 
